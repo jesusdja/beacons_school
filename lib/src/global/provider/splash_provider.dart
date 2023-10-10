@@ -25,6 +25,7 @@ class SplashProvider extends ChangeNotifier {
 
   Future isAuthenticated() async {
     int statusSplash = SharedPrefsLocal.statusSplash;
+    bool isLogged = SharedPrefsLocal.isLogged;
     if (statusSplash == 0) {
       splashStatus = SplashStatus.initial;
     }
@@ -32,13 +33,21 @@ class SplashProvider extends ChangeNotifier {
       splashStatus = SplashStatus.login;
     }
     if (statusSplash == 2) {
-      splashStatus = SplashStatus.initialAdmin;
+      if (isLogged) {
+        splashStatus = SplashStatus.initialAdmin;
+      } else {
+        splashStatus = SplashStatus.login;
+      }
     }
     if (statusSplash == 3) {
       splashStatus = SplashStatus.admin;
     }
     if (statusSplash == 4) {
-      splashStatus = SplashStatus.initialParents;
+      if (isLogged) {
+        splashStatus = SplashStatus.initialParents;
+      } else {
+        splashStatus = SplashStatus.login;
+      }
     }
     if (statusSplash == 5) {
       splashStatus = SplashStatus.parents;

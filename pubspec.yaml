@@ -7,30 +7,22 @@ version: 1.0.0+2
 environment:
   sdk: '>=2.18.4 <3.0.0'
 dependencies:
+  cloud_firestore: ^4.7.1
+  cupertino_icons: ^1.0.2
+  firebase_core: ^2.13.0
   flutter:
     sdk: flutter
-  #IMAGE
-  cupertino_icons: ^1.0.2
-
-  #Estado
+  flutter_beacon: ^0.5.1
+  fluttertoast: ^8.0.7
+  icons_plus: ^4.0.0
+  permission_handler: ^10.2.0
   provider: ^6.0.2
   shared_preferences: ^2.0.15
-  permission_handler: ^10.2.0
-
-  #FIREBASE
-  firebase_core: ^2.13.0
-  cloud_firestore: ^4.7.1
-
-  #BEACONS
-  flutter_beacon: ^0.5.1
-
-  #UTILS
-  fluttertoast: ^8.0.7
 
 dev_dependencies:
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
 flutter:
   uses-material-design: true
   assets:

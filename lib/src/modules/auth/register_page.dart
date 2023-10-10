@@ -1,20 +1,15 @@
-import 'package:beacons_school/src/global/services/shared_preferences_local.dart';
-import 'package:beacons_school/src/global/widgets_utils/my_button.dart';
 import 'package:beacons_school/src/global/widgets_utils/my_input.dart';
-import 'package:beacons_school/src/modules/admin/config_beacons_page.dart';
-import 'package:beacons_school/src/modules/auth/register_page.dart';
-import 'package:beacons_school/src/modules/parents/config_parents_page.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+import '../../global/widgets_utils/my_button.dart';
+
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final splashStatus = SharedPrefsLocal.statusSplash;
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
@@ -30,7 +25,7 @@ class LoginPage extends StatelessWidget {
                   children: [
                     SizedBox(height: 100),
                     Text(
-                      'Iniciar Sesión',
+                      'Registrarse',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
@@ -50,44 +45,42 @@ class LoginPage extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(10, 40, 10, 20),
                       child: Column(
                         children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                const MyInput(
-                                  hintext: "Escribe tu email...",
-                                  label: 'E-mail',
-                                ),
-                                const SizedBox(height: 25),
-                                const MyInput(
-                                  hintext: "Escribe tu contraseña...",
-                                  label: 'Contraseña',
-                                ),
-                                const SizedBox(height: 25),
-                                TextButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                        '¿Olvidaste tu contraseña?')),
-                              ],
+                          const Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  MyInput(
+                                    hintext: "Escribe tu nombre completo...",
+                                    label: 'Nombre',
+                                  ),
+                                  SizedBox(height: 15),
+                                  MyInput(
+                                    hintext: "Escribe tu email...",
+                                    label: 'E-mail',
+                                  ),
+                                  SizedBox(height: 15),
+                                  MyInput(
+                                    hintext: "Escribe tu número telefónico...",
+                                    label: 'Teléfono',
+                                  ),
+                                  SizedBox(height: 15),
+                                  MyInput(
+                                    hintext: "Escribe tu contraseña...",
+                                    label: 'Contraseña',
+                                  ),
+                                  SizedBox(height: 15),
+                                  // TextButton(
+                                  //     onPressed: () {},
+                                  //     child:
+                                  //         const Text('¿Olvidaste tu contraseña?')),
+                                ],
+                              ),
                             ),
                           ),
                           const SizedBox(height: 10),
                           MyButton(
-                            onPressed: () {
-                              SharedPrefsLocal.isLogged = true;
-                              if (SharedPrefsLocal.statusSplash == 2) {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return const ConfigBeaconsPage();
-                                }));
-                              }
-                              if (SharedPrefsLocal.statusSplash == 4) {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return const ConfigParentsPage();
-                                }));
-                              }
-                            },
-                            text: "Iniciar sesión",
+                            onPressed: () {},
+                            text: "Registrase",
                           ),
                           const SizedBox(height: 10),
                           _Divider(),
@@ -107,15 +100,12 @@ class LoginPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text("¿No tienes una cuenta? "),
+                              const Text("¿Ya tienes una cuenta? "),
                               TextButton(
                                   onPressed: () {
                                     FocusScope.of(context)
                                         .requestFocus(FocusNode());
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return const RegisterPage();
-                                    }));
+                                    Navigator.pop(context);
                                   },
                                   child: const Text("CLICK AQUÍ"))
                             ],

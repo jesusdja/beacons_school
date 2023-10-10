@@ -48,8 +48,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Beacons School',
+      navigatorKey: navigatorKey,
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blueGrey),
       home: const InitialPage(),
     );
   }
 }
+
+final navigatorKey = GlobalKey<NavigatorState>();
+NavigatorState get navigator => navigatorKey.currentState!;

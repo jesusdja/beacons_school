@@ -1,9 +1,7 @@
-import 'package:beacons_school/src/global/config/school_colors.dart';
-import 'package:beacons_school/src/global/config/school_style.dart';
 import 'package:beacons_school/src/global/provider/splash_provider.dart';
 import 'package:beacons_school/src/global/services/shared_preferences_local.dart';
-import 'package:beacons_school/src/global/widgets_utils/button_general.dart';
 import 'package:beacons_school/src/global/widgets_utils/circular_progress_colors.dart';
+import 'package:beacons_school/src/global/widgets_utils/my_button.dart';
 import 'package:beacons_school/src/modules/admin/config_beacons_page.dart';
 import 'package:beacons_school/src/modules/admin/admin_home_page.dart';
 import 'package:beacons_school/src/modules/auth/login_page.dart';
@@ -18,6 +16,8 @@ double sizeW = 0;
 
 class InitialPage extends StatefulWidget {
   const InitialPage({Key? key}) : super(key: key);
+
+  static const String route = '/initialPage';
 
   @override
   State<InitialPage> createState() => _InitialPageState();
@@ -44,7 +44,7 @@ class _InitialPageState extends State<InitialPage> {
       return const SelectedTypeApp();
     }
     if (splashProvider.splashStatus == SplashStatus.login) {
-      return LoginPage();
+      return const LoginPage();
     }
     if (splashProvider.splashStatus == SplashStatus.initialAdmin) {
       return const ConfigBeaconsPage();
@@ -90,39 +90,58 @@ class SelectedTypeApp extends StatelessWidget {
     final splashProvider = Provider.of<SplashProvider>(context);
 
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // MaterialButton(onPressed: () {}, child: Text('ADMINISTRADOR'),),
-          ButtonGeneral(
-            title: 'ADMINISTRADOR',
-            onPressed: () {
-              SharedPrefsLocal.statusSplash = 1;
-              splashProvider.splashStatus = SplashStatus.initialAdmin;
-            },
-            backgroundColor: SchoolColors.primary,
-            height: sizeH * 0.05,
-            textStyle: SchoolStyles()
-                .stylePrimary(size: sizeH * 0.025, fontWeight: FontWeight.bold),
-            margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-          ),
-          SizedBox(
-            height: sizeH * 0.02,
-          ),
-          ButtonGeneral(
-            title: 'USUARIO / REPRESENTANTE',
-            onPressed: () {
-              SharedPrefsLocal.statusSplash = 3;
-              splashProvider.splashStatus = SplashStatus.initialParents;
-            },
-            backgroundColor: SchoolColors.primary,
-            height: sizeH * 0.05,
-            textStyle: SchoolStyles()
-                .stylePrimary(size: sizeH * 0.025, fontWeight: FontWeight.bold),
-            margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-          )
-        ],
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyButton(
+                onPressed: () {
+                  SharedPrefsLocal.statusSplash = 2;
+                  // splashProvider.splashStatus = SplashStatus.initialAdmin;
+                  splashProvider.splashStatus = SplashStatus.login;
+                },
+                text: 'ADMINISTRADOR'),
+            const SizedBox(height: 20),
+            MyButton(
+                onPressed: () {
+                  SharedPrefsLocal.statusSplash = 4;
+                  splashProvider.splashStatus = SplashStatus.login;
+                  // splashProvider.splashStatus = SplashStatus.initialParents;
+                },
+                text: 'USUARIO / REPRESENTANTE'),
+
+            /* ButtonGeneral(
+              title: 'ADMINISTRADOR',
+              onPressed: () {
+                SharedPrefsLocal.statusSplash = 1;
+                // splashProvider.splashStatus = SplashStatus.initialAdmin;
+                splashProvider.splashStatus = SplashStatus.login;
+              },
+              backgroundColor: SchoolColors.primary,
+              height: sizeH * 0.05,
+              textStyle: SchoolStyles()
+                  .stylePrimary(size: sizeH * 0.025, fontWeight: FontWeight.bold),
+              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+            ),
+            SizedBox(
+              height: sizeH * 0.02,
+            ),
+            ButtonGeneral(
+              title: 'USUARIO / REPRESENTANTE',
+              onPressed: () {
+                SharedPrefsLocal.statusSplash = 3;
+                splashProvider.splashStatus = SplashStatus.login;
+                splashProvider.splashStatus = SplashStatus.initialParents;
+              },
+              backgroundColor: SchoolColors.primary,
+              height: sizeH * 0.05,
+              textStyle: SchoolStyles()
+                  .stylePrimary(size: sizeH * 0.025, fontWeight: FontWeight.bold),
+              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+            )*/
+          ],
+        ),
       ),
     );
   }
