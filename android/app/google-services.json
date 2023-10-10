@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "492782001116",
+    "project_id": "beaconsschool-c5a2e",
+    "storage_bucket": "beaconsschool-c5a2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492782001116:android:70ea7acd3565cd08f84d19",
+        "android_client_info": {
+          "package_name": "com.beaconsschool.beacons_school"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492782001116-m9r9iu44p5tdrfndb63c039h69jhsfb3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beaconsschool.beacons_school",
+            "certificate_hash": "513ed585199a27210627e7da303583e474cba684"
+          }
+        },
+        {
+          "client_id": "492782001116-uis2de73h1ctsontjh500eavmgse3200.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR_VYaCkq2Gsr8XiKOIzrLpRULNQ7YSsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "492782001116-uis2de73h1ctsontjh500eavmgse3200.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
