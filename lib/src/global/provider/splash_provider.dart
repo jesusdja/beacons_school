@@ -7,7 +7,8 @@ enum SplashStatus {
   admin,
   parents,
   initialAdmin,
-  initialParents
+  initialParents,
+  login
 }
 
 class SplashProvider extends ChangeNotifier {
@@ -28,15 +29,18 @@ class SplashProvider extends ChangeNotifier {
       splashStatus = SplashStatus.initial;
     }
     if (statusSplash == 1) {
-      splashStatus = SplashStatus.initialAdmin;
+      splashStatus = SplashStatus.login;
     }
     if (statusSplash == 2) {
-      splashStatus = SplashStatus.admin;
+      splashStatus = SplashStatus.initialAdmin;
     }
     if (statusSplash == 3) {
-      splashStatus = SplashStatus.initialParents;
+      splashStatus = SplashStatus.admin;
     }
     if (statusSplash == 4) {
+      splashStatus = SplashStatus.initialParents;
+    }
+    if (statusSplash == 5) {
       splashStatus = SplashStatus.parents;
     }
     notifyListeners();

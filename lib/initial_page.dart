@@ -6,6 +6,7 @@ import 'package:beacons_school/src/global/widgets_utils/button_general.dart';
 import 'package:beacons_school/src/global/widgets_utils/circular_progress_colors.dart';
 import 'package:beacons_school/src/modules/admin/config_beacons_page.dart';
 import 'package:beacons_school/src/modules/admin/admin_home_page.dart';
+import 'package:beacons_school/src/modules/auth/login_page.dart';
 import 'package:beacons_school/src/modules/parents/config_parents_page.dart';
 import 'package:beacons_school/src/modules/parents/parents_home_page.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,9 @@ class _InitialPageState extends State<InitialPage> {
 
     if (splashProvider.splashStatus == SplashStatus.initial) {
       return const SelectedTypeApp();
+    }
+    if (splashProvider.splashStatus == SplashStatus.login) {
+      return LoginPage();
     }
     if (splashProvider.splashStatus == SplashStatus.initialAdmin) {
       return const ConfigBeaconsPage();
