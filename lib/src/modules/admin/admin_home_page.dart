@@ -1,13 +1,16 @@
 import 'package:beacons_school/initial_page.dart';
 import 'package:beacons_school/src/global/config/school_style.dart';
+import 'package:beacons_school/src/global/provider/splash_provider.dart';
 import 'package:beacons_school/src/global/services/shared_preferences_local.dart';
 import 'package:beacons_school/src/global/widgets_utils/circular_progress_colors.dart';
 import 'package:beacons_school/src/modules/admin/config_beacons_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key}) : super(key: key);
+  static const route = '/admin_home_page';
 
   @override
   State<AdminHomePage> createState() => _ParentsHomePageState();
@@ -16,6 +19,8 @@ class AdminHomePage extends StatefulWidget {
 class _ParentsHomePageState extends State<AdminHomePage> {
   @override
   Widget build(BuildContext context) {
+    final splashProvider = context.read<SplashProvider>();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -23,24 +28,21 @@ class _ParentsHomePageState extends State<AdminHomePage> {
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          const ConfigBeaconsPage(
-                            isConfig: true,
-                          )));
+              Navigator.pushNamed(
+                context,
+                ConfigBeaconsPage.route,
+                arguments: true,
+              );
             },
           ),
           IconButton(
-              onPressed: () {
+              onPressed: () async {
                 SharedPrefsLocal.isLogged = false;
                 SharedPrefsLocal.statusSplash = 0;
-
-                Navigator.pushAndRemoveUntil(
+                splashProvider.splashStatus = SplashStatus.initial;
+                Navigator.pushNamedAndRemoveUntil(
                   context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => const InitialPage()),
+                  InitialPage.route,
                   (route) => false,
                 );
               },
@@ -49,25 +51,7 @@ class _ParentsHomePageState extends State<AdminHomePage> {
               ))
         ],
       ),
-      body: Column(
-        children: [
-          // Container(
-          //   width: sizeW,
-          //   alignment: Alignment.centerRight,
-          //   margin: EdgeInsets.only(top: sizeH * 0.08,right: sizeW * 0.1),
-          //   child: IconButton(
-          //     icon: Icon(Icons.edit,color: SchoolColors.primary,size: sizeH * 0.03),
-          //     onPressed: (){
-          //       Navigator.push(context, MaterialPageRoute(builder:
-          //           (BuildContext context) => const ConfigBeaconsPage(isConfig: true,)));
-          //     },
-          //   ),
-          // ),
-          Expanded(
-            child: body(),
-          )
-        ],
-      ),
+      body: body(),
     );
   }
 
@@ -115,15 +99,17 @@ class _ParentsHomePageState extends State<AdminHomePage> {
 
             return SizedBox(
               width: sizeW,
-              child: Column(
-                children: [
-                  ...listW1,
-                  ...listW2,
-                  ...listW3,
-                  ...listW4,
-                  ...listW5,
-                  ...listW
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ...listW1,
+                    ...listW2,
+                    ...listW3,
+                    ...listW4,
+                    ...listW5,
+                    ...listW
+                  ],
+                ),
               ),
             );
           }),

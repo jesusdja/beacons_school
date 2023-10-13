@@ -5,16 +5,18 @@ import 'package:beacons_school/src/modules/admin/config_beacons_page.dart';
 import 'package:beacons_school/src/modules/auth/register_page.dart';
 import 'package:beacons_school/src/modules/parents/config_parents_page.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:icons_plus/icons_plus.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
+  static const route = '/login';
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final splashStatus = SharedPrefsLocal.statusSplash;
+    // final splashStatus = SharedPrefsLocal.statusSplash;
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
@@ -75,35 +77,31 @@ class LoginPage extends StatelessWidget {
                             onPressed: () {
                               SharedPrefsLocal.isLogged = true;
                               if (SharedPrefsLocal.statusSplash == 2) {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return const ConfigBeaconsPage();
-                                }));
+                                Navigator.pushReplacementNamed(
+                                    context, ConfigBeaconsPage.route);
                               }
                               if (SharedPrefsLocal.statusSplash == 4) {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return const ConfigParentsPage();
-                                }));
+                                Navigator.pushReplacementNamed(
+                                    context, ConfigParentsPage.route);
                               }
                             },
                             text: "Iniciar sesión",
                           ),
                           const SizedBox(height: 10),
-                          _Divider(),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              IconButton(
-                                  onPressed: () {}, icon: Logo(Logos.google)),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Logo(Logos.facebook_f)),
-                              IconButton(
-                                  onPressed: () {}, icon: Logo(Logos.twitter))
-                            ],
-                          ),
+                          // _Divider(),
+                          // const SizedBox(height: 10),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //   children: [
+                          //     IconButton(
+                          //         onPressed: () {}, icon: Logo(Logos.google)),
+                          //     IconButton(
+                          //         onPressed: () {},
+                          //         icon: Logo(Logos.facebook_f)),
+                          //     IconButton(
+                          //         onPressed: () {}, icon: Logo(Logos.twitter))
+                          //   ],
+                          // ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

@@ -1,11 +1,13 @@
 import 'package:beacons_school/src/global/widgets_utils/my_input.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+// import 'package:icons_plus/icons_plus.dart';
 
 import '../../global/widgets_utils/my_button.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
+
+  static const String route = '/register_page';
 
   @override
   Widget build(BuildContext context) {
@@ -83,20 +85,20 @@ class RegisterPage extends StatelessWidget {
                             text: "Registrase",
                           ),
                           const SizedBox(height: 10),
-                          _Divider(),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              IconButton(
-                                  onPressed: () {}, icon: Logo(Logos.google)),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Logo(Logos.facebook_f)),
-                              IconButton(
-                                  onPressed: () {}, icon: Logo(Logos.twitter))
-                            ],
-                          ),
+                          // _Divider(),
+                          // const SizedBox(height: 10),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //   children: [
+                          //     IconButton(
+                          //         onPressed: () {}, icon: Logo(Logos.google)),
+                          //     IconButton(
+                          //         onPressed: () {},
+                          //         icon: Logo(Logos.facebook_f)),
+                          //     IconButton(
+                          //         onPressed: () {}, icon: Logo(Logos.twitter))
+                          //   ],
+                          // ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -136,7 +138,7 @@ class RegisterPage extends StatelessWidget {
         color: Colors.white);
   }
 }
-
+/*
 class _Divider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -159,4 +161,4 @@ class _Divider extends StatelessWidget {
       ],
     );
   }
-}
+}*/

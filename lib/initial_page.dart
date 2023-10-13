@@ -17,7 +17,7 @@ double sizeW = 0;
 class InitialPage extends StatefulWidget {
   const InitialPage({Key? key}) : super(key: key);
 
-  static const String route = '/initialPage';
+  static const String route = '/';
 
   @override
   State<InitialPage> createState() => _InitialPageState();
@@ -31,33 +31,36 @@ class _InitialPageState extends State<InitialPage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      final splashProvider =
+          Provider.of<SplashProvider>(context, listen: false);
+
+      if (splashProvider.splashStatus == SplashStatus.initial) {
+        Navigator.pushReplacementNamed(context, SelectedTypeApp.route);
+      }
+      if (splashProvider.splashStatus == SplashStatus.login) {
+        Navigator.pushReplacementNamed(context, LoginPage.route);
+      }
+      if (splashProvider.splashStatus == SplashStatus.initialAdmin) {
+        Navigator.pushReplacementNamed(context, ConfigBeaconsPage.route);
+      }
+      if (splashProvider.splashStatus == SplashStatus.initialParents) {
+        Navigator.pushReplacementNamed(context, ConfigParentsPage.route);
+      }
+      if (splashProvider.splashStatus == SplashStatus.parents) {
+        Navigator.pushReplacementNamed(context, ParentsHomePage.route);
+      }
+      if (splashProvider.splashStatus == SplashStatus.admin) {
+        Navigator.pushReplacementNamed(context, AdminHomePage.route);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     sizeH = MediaQuery.of(context).size.height;
     sizeW = MediaQuery.of(context).size.width;
-
-    final splashProvider = Provider.of<SplashProvider>(context);
-
-    if (splashProvider.splashStatus == SplashStatus.initial) {
-      return const SelectedTypeApp();
-    }
-    if (splashProvider.splashStatus == SplashStatus.login) {
-      return const LoginPage();
-    }
-    if (splashProvider.splashStatus == SplashStatus.initialAdmin) {
-      return const ConfigBeaconsPage();
-    }
-    if (splashProvider.splashStatus == SplashStatus.initialParents) {
-      return const ConfigParentsPage();
-    }
-    if (splashProvider.splashStatus == SplashStatus.parents) {
-      return const ParentsHomePage();
-    }
-    if (splashProvider.splashStatus == SplashStatus.admin) {
-      return const AdminHomePage();
-    }
     return const BasicSplash();
   }
 }
@@ -85,10 +88,10 @@ class BasicSplash extends StatelessWidget {
 class SelectedTypeApp extends StatelessWidget {
   const SelectedTypeApp({Key? key}) : super(key: key);
 
+  static const String route = '/selected_type';
+
   @override
   Widget build(BuildContext context) {
-    final splashProvider = Provider.of<SplashProvider>(context);
-
     return Scaffold(
       body: Center(
         child: Column(
@@ -98,15 +101,14 @@ class SelectedTypeApp extends StatelessWidget {
             MyButton(
                 onPressed: () {
                   SharedPrefsLocal.statusSplash = 2;
-                  // splashProvider.splashStatus = SplashStatus.initialAdmin;
-                  splashProvider.splashStatus = SplashStatus.login;
+                  Navigator.pushReplacementNamed(context, LoginPage.route);
                 },
                 text: 'ADMINISTRADOR'),
             const SizedBox(height: 20),
             MyButton(
                 onPressed: () {
                   SharedPrefsLocal.statusSplash = 4;
-                  splashProvider.splashStatus = SplashStatus.login;
+                  Navigator.pushReplacementNamed(context, LoginPage.route);
                   // splashProvider.splashStatus = SplashStatus.initialParents;
                 },
                 text: 'USUARIO / REPRESENTANTE'),

@@ -1,7 +1,7 @@
 import 'package:beacons_school/initial_page.dart';
-import 'package:beacons_school/src/global/config/school_colors.dart';
+// import 'package:beacons_school/src/global/config/school_colors.dart';
 import 'package:beacons_school/src/global/config/school_style.dart';
-import 'package:beacons_school/src/global/widgets_utils/button_general.dart';
+// import 'package:beacons_school/src/global/widgets_utils/button_general.dart';
 import 'package:beacons_school/src/global/widgets_utils/circular_progress_colors.dart';
 import 'package:beacons_school/src/global/widgets_utils/my_button.dart';
 import 'package:beacons_school/src/global/widgets_utils/textfield_general.dart';
@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 class ConfigBeaconsPage extends StatefulWidget {
   const ConfigBeaconsPage({Key? key, this.isConfig = false}) : super(key: key);
   final bool isConfig;
+
+  static const String route = '/confg_beacons_page';
 
   @override
   State<ConfigBeaconsPage> createState() => _ConfigBeaconsPageState();
@@ -25,11 +27,13 @@ class _ConfigBeaconsPageState extends State<ConfigBeaconsPage> {
     configBeaconsProvider = Provider.of<ConfigBeaconsProvider>(context);
 
     return Scaffold(
+      appBar: AppBar(),
       body: configBeaconsProvider.loadData
           ? Center(
               child: circularProgressColors(),
             )
-          : Column(
+          : body(),
+      /*Column(
               children: [
                 if (widget.isConfig) ...[
                   Container(
@@ -49,7 +53,7 @@ class _ConfigBeaconsPageState extends State<ConfigBeaconsPage> {
                   child: body(),
                 )
               ],
-            ),
+            ),*/
     );
   }
 
@@ -61,9 +65,9 @@ class _ConfigBeaconsPageState extends State<ConfigBeaconsPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: sizeH * 0.1,
-            ),
+            // SizedBox(
+            //   height: sizeH * 0.1,
+            // ),
             title(text: 'NIVEL 1'),
             textField(type: 1),
             SizedBox(

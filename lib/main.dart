@@ -1,3 +1,4 @@
+import 'package:beacons_school/src/global/routers/app_router.dart';
 import 'package:beacons_school/src/global/services/shared_preferences_local.dart';
 import 'package:beacons_school/src/global/provider/splash_provider.dart';
 import 'package:beacons_school/src/global/provider/config_beacons_provider.dart';
@@ -6,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'initial_page.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
+NavigatorState get navigator => navigatorKey.currentState!;
 
 //FDA50693-A4E2-4FB1-AFCF-C6EB07647825
 //FDA50693-A4E2-4FB1-AFCF-C6EB07647828
@@ -48,12 +52,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Beacons School',
+      navigatorObservers: [_ClearFocusOnPush()],
       navigatorKey: navigatorKey,
+      onGenerateRoute: AppRouter.generateRoute,
+      initialRoute: AppRouter.initialPage,
+      // home: InitialPage(),
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blueGrey),
-      home: const InitialPage(),
     );
   }
 }
 
-final navigatorKey = GlobalKey<NavigatorState>();
-NavigatorState get navigator => navigatorKey.currentState!;
+class _ClearFocusOnPush extends NavigatorObserver {
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    super.didPush(route, previousRoute);
+    final focus = FocusManager.instance.primaryFocus;
+    focus?.unfocus();
+  }
+}

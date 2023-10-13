@@ -3,6 +3,7 @@ import 'package:beacons_school/src/global/config/school_colors.dart';
 import 'package:beacons_school/src/global/config/school_style.dart';
 import 'package:beacons_school/src/global/widgets_utils/button_general.dart';
 import 'package:beacons_school/src/global/widgets_utils/circular_progress_colors.dart';
+import 'package:beacons_school/src/global/widgets_utils/my_button.dart';
 import 'package:beacons_school/src/global/widgets_utils/textfield_general.dart';
 import 'package:beacons_school/src/global/provider/config_parents_provider.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +13,13 @@ class ConfigParentsPage extends StatefulWidget {
   const ConfigParentsPage({Key? key, this.isConfig = false}) : super(key: key);
   final bool isConfig;
 
+  static const String route = '/config_parents_page';
+
   @override
   State<ConfigParentsPage> createState() => _ConfigBeaconsPageState();
 }
 
 class _ConfigBeaconsPageState extends State<ConfigParentsPage> {
-
   late ConfigParentsProvider configParentsProvider;
 
   @override
@@ -25,71 +27,79 @@ class _ConfigBeaconsPageState extends State<ConfigParentsPage> {
     return ChangeNotifierProvider(
         create: (context) => ConfigParentsProvider(),
         child: Consumer<ConfigParentsProvider>(
-            builder: (context, provider, child){
+            builder: (context, provider, child) {
+          configParentsProvider = provider;
 
-              configParentsProvider = provider;
-
-              return Scaffold(
-                body: configParentsProvider.loadData ? Center(
-                  child: circularProgressColors(),
-                ) : Column(
-                  children: [
-                    if(widget.isConfig)...[
-                      Container(
-                        width: sizeW,
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only(top: sizeH * 0.08,left: sizeW * 0.05),
-                        child: IconButton(
-                          icon: Icon(Icons.arrow_back_ios,color: SchoolColors.primary,size: sizeH * 0.03),
-                          onPressed: (){
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ),
+          return Scaffold(
+            appBar: AppBar(),
+            body: configParentsProvider.loadData
+                ? Center(
+                    child: circularProgressColors(),
+                  )
+                : body(),
+            /*Column(
+                    children: [
+                      // if (widget.isConfig) ...[
+                      //   Container(
+                      //     width: sizeW,
+                      //     alignment: Alignment.centerLeft,
+                      //     margin: EdgeInsets.only(
+                      //         top: sizeH * 0.08, left: sizeW * 0.05),
+                      //     child: IconButton(
+                      //       icon: Icon(Icons.arrow_back_ios,
+                      //           color: SchoolColors.primary,
+                      //           size: sizeH * 0.03),
+                      //       onPressed: () {
+                      //         Navigator.of(context).pop();
+                      //       },
+                      //     ),
+                      //   ),
+                      // ],
+                      Expanded(
+                        child: body(),
+                      )
                     ],
-                    Expanded(
-                      child: body(),
-                    )
-                  ],
-                ),
-              );
-            }
-        )
-    );
+                  ),*/
+          );
+        }));
   }
 
-  Widget body(){
+  Widget body() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: sizeW * 0.03),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           title(text: 'NOMBRE DEL PADRE'),
           textField(type: 1),
-          SizedBox(height: sizeH * 0.02,),
+          SizedBox(
+            height: sizeH * 0.02,
+          ),
           title(text: 'NOMBRE DEL HIJ@'),
           textField(type: 2),
-          SizedBox(height: sizeH * 0.02,),
+          SizedBox(
+            height: sizeH * 0.05,
+          ),
           buttonContinue()
         ],
       ),
     );
   }
 
-  Widget title({ required String text }){
+  Widget title({required String text}) {
     return SizedBox(
       width: sizeW,
-      child: Text(text,style: SchoolStyles().stylePrimary(
-        size: sizeH * 0.02,
-      )),
+      child: Text(text,
+          style: SchoolStyles().stylePrimary(
+            size: sizeH * 0.02,
+          )),
     );
   }
 
-  Widget textField({required int type}){
-
+  Widget textField({required int type}) {
     TextEditingController controller = configParentsProvider.controller1;
-    if(type == 2){
+    if (type == 2) {
       controller = configParentsProvider.controller2;
     }
 
@@ -101,22 +111,20 @@ class _ConfigBeaconsPageState extends State<ConfigParentsPage> {
     );
   }
 
-  Widget buttonContinue(){
-    return configParentsProvider.loadSave ?
-    Center(
-      child: circularProgressColors(),
-    )
-    :
-    ButtonGeneral(
-      title: 'Continuar',
-      onPressed: ()=> configParentsProvider.saveData(context: context, isConfig: widget.isConfig),
-      backgroundColor: SchoolColors.primary,
-      height: sizeH * 0.05,
-      textStyle: SchoolStyles().stylePrimary(
-        size: sizeH * 0.025,
-        fontWeight: FontWeight.bold
-      ),
-      margin: EdgeInsets.symmetric(horizontal: sizeW * 0.2),
-    );
+  Widget buttonContinue() {
+    return configParentsProvider.loadSave
+        ? Center(
+            child: circularProgressColors(),
+          )
+        : MyButton(
+            text: 'Continuar',
+            onPressed: () => configParentsProvider.saveData(
+                context: context, isConfig: widget.isConfig),
+            // backgroundColor: SchoolColors.primary,
+            // height: sizeH * 0.05,
+            // textStyle: SchoolStyles()
+            //     .stylePrimary(size: sizeH * 0.025, fontWeight: FontWeight.bold),
+            // margin: EdgeInsets.symmetric(horizontal: sizeW * 0.2),
+          );
   }
 }
